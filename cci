@@ -1,0 +1,78 @@
+true == function() {
+
+
+
+	var pm = [] //max prince
+	var pc = [] //close prince
+	var pl = [] // min prince
+	var tedad = [] // tedad moamelat
+	var cci = [] // shakhes cci
+	var arzesh = [] // arzesh moamelat
+	var tkhha =(ct).Buy_CountI // tedad kharidar haghighi
+	var ghodrathaghighi = ((ct).Sell_N_Volume - (ct).Buy_N_Volume) / tkhha
+	for (var i = 0; i < 59; i++) {
+		pm[i] = [ih][i].PriceMax
+		pc[i] = [ih][i].PClosing
+		pl[i] = [ih][i].PriceMin
+		tedad[i] = [ih][i].ZTotTran
+		arzesh[i] = [ih][i].QTotCap
+
+
+	}
+	for (var i = pm.length - 1; i >= 0; i--) {
+		if (pm[i] == 0) {
+			pm.splice(i, 1);
+			pc.splice(i, 1);
+			pl.splice(i, 1);
+			tedad.splice(i, 1);
+			arzesh.splice(i, 1);
+		}
+	}
+	pm.splice(0, 0, (pmax));
+	pc.splice(0, 0, (pc));
+	pl.splice(0, 0, (pmin));
+	tedad.splice(0, 0, (tno));
+	arzesh.splice(0, 0, (tval));
+	//........................................
+	period = 14
+	end = 10
+	for (k = 0; k < end; k++) {
+
+		var stp = 0
+		var snd = 0
+		var s = 0
+		i = 0
+		while (i < period) {
+
+			j = period - 1 - i + k
+			tp = (pm[j] + pc[j] + pl[j]) / 3
+			stp = stp + tp
+			smtp = stp / (i + 1)
+			nd = Math.abs(smtp - tp)
+			snd = snd + nd
+			smnd = snd / (i + 1)
+			i = i + 1
+		}
+		cci[k] = Math.round(((tp - smtp) / smnd) / 0.015)
+	}
+
+	for (var i = cci.length - 1; i >= 0; i--) {
+		if (cci[i] == "NaN") {
+			cci.splice(i, 1);
+
+		}
+	}
+
+	//..................................................
+	a = 0
+	b = 0
+	for (i = 0; i < 14; i++) {
+		a += tedad[i + 1] / 14
+		b += arzesh[i + 1] / 14
+	}
+	//...............................................................
+	(cfield0) = cci[0]
+	(cfield1) = tkhha
+        (cfield2) = Math.round(ghodrathaghighi)
+	if (a > 40 && b > 5000000000 && cci[0] < -50 && cci[0] > cci[1] && cci[1] > cci[2]) return (1)
+}()
