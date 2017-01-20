@@ -10,6 +10,7 @@ true == function() {
 	var arzesh = [] // arzesh moamelat
 	var tkhha =(ct).Buy_CountI // tedad kharidar haghighi
 	var ghodrathaghighi = ((ct).Sell_N_Volume - (ct).Buy_N_Volume) / tkhha
+
 	for (var i = 0; i < 59; i++) {
 		pm[i] = [ih][i].PriceMax
 		pc[i] = [ih][i].PClosing
@@ -66,6 +67,7 @@ true == function() {
 	//..................................................
 	a = 0
 	b = 0
+        c= (z)*pc[1]
 	for (i = 0; i < 14; i++) {
 		a += tedad[i + 1] / 14
 		b += arzesh[i + 1] / 14
@@ -73,6 +75,10 @@ true == function() {
 	//...............................................................
 	(cfield0) = cci[0]
 	(cfield1) = tkhha
-        (cfield2) = Math.round(ghodrathaghighi)
-	if (a > 40 && b > 5000000000 && cci[0] < -50 && cci[0] > cci[1] && cci[1] > cci[2]) return (1)
+        (cfield2) =1
+//a miangin 14 ruze tedad moamelat
+//b miangin 14 ruzeye arzesh moamelat
+//c arzesh kol sherkat
+
+	if (a > 40 && b > 5000000000  && c<1000000000000*20 && cci[0] < -50 && cci[0] > cci[1] && cci[1] > cci[2]) return (1)
 }()
