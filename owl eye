@@ -1,0 +1,114 @@
+true == function() {
+
+
+
+	var pm = [] //max prince
+	var pc = [] //close prince
+	var pl = [] // min prince
+	var tedad = [] // tedad moamelat
+	var cci = [] // shakhes cci
+	var arzesh = [] // arzesh moamelat
+	var tkhha =(ct).Buy_CountI // tedad kharidar haghighi
+	var ghodrathaghighi = ((ct).Sell_N_Volume - (ct).Buy_N_Volume) / tkhha
+var max=(pc)
+var min=(pc)
+var mima=0 //navasan i ruze sahm
+var e=[] // namayesh etelaat
+	for (var i = 0; i < 59; i++) {
+		pm[i] = [ih][i].PriceMax
+		pc[i] = [ih][i].PClosing
+		pl[i] = [ih][i].PriceMin
+		tedad[i] = [ih][i].ZTotTran
+		arzesh[i] = [ih][i].QTotCap
+
+
+	}
+	for (var i = pm.length - 1; i >= 0; i--) {
+		if (pm[i] == 0) {
+			pm.splice(i, 1);
+			pc.splice(i, 1);
+			pl.splice(i, 1);
+			tedad.splice(i, 1);
+			arzesh.splice(i, 1);
+		}
+	}
+	pm.splice(0, 0, (pmax));
+	pc.splice(0, 0, (pc));
+	pl.splice(0, 0, (pmin));
+	tedad.splice(0, 0, (tno));
+	arzesh.splice(0, 0, (tval));
+	//........................................
+	period = 14
+	end = 10
+	for (k = 0; k < end; k++) {
+
+		var stp = 0
+		var snd = 0
+		var s = 0
+		i = 0
+		while (i < period) {
+
+			j = period - 1 - i + k
+			tp = (pm[j] + pc[j] + pl[j]) / 3
+			stp = stp + tp
+			smtp = stp / (i + 1)
+			nd = Math.abs(smtp - tp)
+			snd = snd + nd
+			smnd = snd / (i + 1)
+			i = i + 1
+		}
+		cci[k] = Math.round(((tp - smtp) / smnd) / 0.015)
+	}
+
+	for (var i = cci.length - 1; i >= 0; i--) {
+		if (cci[i] == "NaN") {
+			cci.splice(i, 1);
+
+		}
+	}
+
+	//..................................................
+	a = 0
+	b = 0
+        c= (z)*pc[1]/100000000
+	for (i = 0; i < 14; i++) {
+		a += tedad[i + 1] / 14
+		b += arzesh[i + 1] / 14
+	}
+b=b/100000000
+	//...............................................................
+
+for (var i = 0; i < 14; i++) {
+ max=Math.max(pm[i],pm[i+1],max)
+min=Math.min(pm[i],pm[i+1],min)
+}
+mima=Math.round((max-min)/min*1000)/10
+//........................................................
+
+
+e[1]=Math.round(cci[0])                    //shakhes cci                      cci=1
+e[2]=Math.round(mima )                      //damaneye navasan          mima=2
+e[3]=Math.round(a)                              //miangin tedad moamelat       a=3
+e[4]=Math.round(b)                                //miangin arzesh moamelat      b=4
+e[5]=Math.round(c)                          //arzesh kol sahm                   c=5
+e[6]=Math.round(tkhha)                      //tedad kharidar haghighi  tkhha=6
+e[7]=0                                              //tanzimat cci
+e[8]=Math.round(b/a*100)           //miangin arzesh har moamele
+
+if(cci[0] > cci[1] ) e[7] =1
+if( cci[1] > cci[2]) e[7] =9
+if(cci[0] > cci[1] &&  cci[1] > cci[2] ) e[7] =2
+if(cci[0] > cci[1] &&  cci[1] > cci[2]  &&  cci[2] > cci[3]) e[7] =3
+if(cci[0] < -50 && cci[0] > cci[1] && cci[1] > cci[2]) e[7] =4
+if(cci[0] < -50 && cci[0] > cci[1] && cci[1] > cci[2] &&  cci[2] > cci[3]) e[7] =5
+if(cci[0] < -100 && cci[0] > cci[1] && cci[1] > cci[2]) e[7] =6
+if(cci[0] < -100 && cci[0] > cci[1] && cci[1] > cci[2] && cci[2] > cci[3]) e[7] =7
+if(cci[0] >50 && cci[0] > cci[1] && cci[1] > cci[2]) e[7] =8
+
+	(cfield0) =e[8]
+        (cfield1) =e[7]
+        (cfield2) =cci[0]+"|"+cci[1]+"|"+cci[2]+"|"+cci[3]
+
+
+	if (   e[5]>5000 && e[2]>8 && e[3]>100 &&e[7]>0 ) return (1)
+}()
