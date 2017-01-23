@@ -97,16 +97,18 @@ e[8]=Math.round(b/a*100)           //miangin arzesh har moamele
 
 
 if(cci[0] > cci[1] && cci[1] > cci[2] ) e[7] ="2"
-if(cci[0] < -50 && cci[0] > cci[1] && cci[1] > cci[2]) e[7] ="2  -50"
-if(cci[0] < -100 && cci[0] > cci[1] && cci[1] > cci[2]) e[7] ="2  -100"
-if(cci[0] >50 && cci[0] > cci[1] && cci[1] > cci[2]) e[7] ="2  +50"
+if(cci[0] < -50 && cci[0] > cci[1] && cci[1] > cci[2]) e[7] ="2<50"
+if(cci[0] < -100 && cci[0] > cci[1] && cci[1] > cci[2]) e[7] ="2<100"
+if(cci[0] >50 && cci[0] > cci[1] && cci[1] > cci[2]) e[7] ="2>50"
 if(cci[0] > cci[1] &&  cci[1] > cci[2]  &&  cci[2] > cci[3]) e[7] ="3"
-if(cci[0] < -50 && cci[0] > cci[1] && cci[1] > cci[2] &&  cci[2] > cci[3]) e[7] ="3  -50"
-if(cci[0] > 50 && cci[0] > cci[1] && cci[1] > cci[2] &&  cci[2] > cci[3]) e[7] ="3  +50"
-if(cci[0] < -100 && cci[0] > cci[1] && cci[1] > cci[2] && cci[2] > cci[3]) e[7] ="3  -100"
+if(cci[0] < -50 && cci[0] > cci[1] && cci[1] > cci[2] &&  cci[2] > cci[3]) e[7] ="3<50"
+if(cci[0] > 50 && cci[0] > cci[1] && cci[1] > cci[2] &&  cci[2] > cci[3]) e[7] ="3>50"
+if(cci[0] < -100 && cci[0] > cci[1] && cci[1] > cci[2] && cci[2] > cci[3]) e[7] ="3<100"
 
 
-	(cfield0) =e[8]
+
+
+	(cfield0) =parseFloat(row["visitcount"])
         (cfield1) =e[7]
         (cfield2) =cci[0]+"|"+cci[1]+"|"+cci[2]+"|"+cci[3]
 
