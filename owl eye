@@ -20,8 +20,6 @@ var e=[] // namayesh etelaat
 		pl[i] = [ih][i].PriceMin
 		tedad[i] = [ih][i].ZTotTran
 		arzesh[i] = [ih][i].QTotCap
-
-
 	}
 	for (var i = pm.length - 1; i >= 0; i--) {
 		if (pm[i] == 0) {
@@ -75,43 +73,101 @@ var e=[] // namayesh etelaat
 		a += tedad[i + 1] / 14
 		b += arzesh[i + 1] / 14
 	}
-b=b/100000000
-	//...............................................................
-
+           b=b/100000000
+//...............................................................
 for (var i = 0; i < 14; i++) {
  max=Math.max(pm[i],pm[i+1],max)
 min=Math.min(pm[i],pm[i+1],min)
 }
 mima=Math.round((max-min)/min*1000)/10
+//...........
+function cciNum(a,b){
+if(a>b){return"<span style='color:green'>"+a+"</span>"}
+  else {
+    if(a<b){
+              return"<span style='color:red'>-"+(-a)+"</span>"}
+else{return a}}}
+
+function rsiNum(a){
+   if(a<25){return"<span style='color:green;font-size:120%'>"+a+"</span>"}
+   if(a>75) {return"<span style='color:red;font-size:120%'>"+a+"</span>"}
+else {return"<span style='color:black;font-size:90%'>"+a+"</span>"}}
 //........................................................
+var CalculateRSI =function(period){
 
+      var len=20;
 
+      for (var i = 0; i < len ; i++) {
+         var rec=[ih][len-1-i];
+
+         var change=rec.PClosing-rec.PriceYesterday;         
+
+         if (change> 0) {
+        rec.gain=change;
+                rec.loss=0;
+         }
+         else
+         {
+        rec.gain=0;
+                rec.loss=-change;
+         }
+      }
+      // Calculate first "average gain" and "average loss"
+      var gainSum=0;
+      var lossSum=0;
+      for (var i = 0; i < period; i++) {
+         var rec=[ih][len-1-i];
+     gainSum += rec.gain;
+     lossSum += rec.loss;
+      }
+      var averageGain=gainSum /period;
+      var averageLoss=lossSum / period;
+      // Calculate subsequent "average gain" and "average loss" values
+      for (var i = period + 1; i < len; i++) {
+         var rec=[ih][len-1-i];
+         averageGain=(averageGain* (period - 1) + rec.gain) / period;
+         averageLoss=(averageLoss* (period - 1) + rec. loss)/  period;
+         rec.averageGain=averageGain;
+         rec.averageLoss=averageLoss;
+      }
+      // Calculate RSI
+      var RS = 0; // Relative strength
+      var RSIndex = 0; // Relative strength index
+      for (var i = period + 1; i < len; i++) {
+         var rec=[ih][len-1-i];
+         RS = rec.averageGain/ rec.averageLoss;
+     RSIndex = 100 - 100 / (1 + RS);
+     rec.rsi=RSIndex;
+      }
+   };
+      if(typeof [ih][0].rsi=="undefined")  
+        CalculateRSI(14);
+//.......................
 e[1]=Math.round(cci[0])                    //shakhes cci                      cci=1
 e[2]=Math.round(mima )                      //damaneye navasan          mima=2
 e[3]=Math.round(a)                              //miangin tedad moamelat       a=3
 e[4]=Math.round(b)                                //miangin arzesh moamelat      b=4
 e[5]=Math.round(c)                          //arzesh kol sahm                   c=5
 e[6]=Math.round(tkhha)                      //tedad kharidar haghighi  tkhha=6
-                                              //tanzimat cci
+e[7]=0                                            //tanzimat cci
 e[8]=Math.round(b/a*100)           //miangin arzesh har moamele
+e[9]=Math.round([ih][0].rsi)
+
+
+
 
 
 if(cci[0] > cci[1] && cci[1] > cci[2] ) e[7] ="2"
-if(cci[0] < -50 && cci[0] > cci[1] && cci[1] > cci[2]) e[7] ="2<50"
-if(cci[0] < -100 && cci[0] > cci[1] && cci[1] > cci[2]) e[7] ="2<100"
-if(cci[0] >50 && cci[0] > cci[1] && cci[1] > cci[2]) e[7] ="2>50"
 if(cci[0] > cci[1] &&  cci[1] > cci[2]  &&  cci[2] > cci[3]) e[7] ="3"
-if(cci[0] < -50 && cci[0] > cci[1] && cci[1] > cci[2] &&  cci[2] > cci[3]) e[7] ="3<50"
-if(cci[0] > 50 && cci[0] > cci[1] && cci[1] > cci[2] &&  cci[2] > cci[3]) e[7] ="3>50"
-if(cci[0] < -100 && cci[0] > cci[1] && cci[1] > cci[2] && cci[2] > cci[3]) e[7] ="3<100"
-
+if(cci[0] > cci[1] &&  cci[1] > cci[2]  &&  cci[2] > cci[3] &&  cci[3] > cci[4]) e[7] ="4"
+if(cci[0] > cci[1] &&  cci[1] > cci[2]  &&  cci[2] > cci[3] &&  cci[3] >cci[4] &&  cci[4] >cci[5]) e[7] ="5"
 
 
 
 	(cfield0) =parseFloat(row["visitcount"])
         (cfield1) =e[7]
-        (cfield2) =cci[0]+"|"+cci[1]+"|"+cci[2]+"|"+cci[3]
+        (cfield2) ="Rsi "+rsiNum(e[9])+" |cci "+cciNum(cci[0],cci[1])+"|"+cciNum(cci[1],cci[2])+"|"+cciNum(cci[2],cci[3])+"|"+cci[3]
 
 
-	if (   e[5]>5000 && e[2]>8 && e[3]>100 && e[7]!=undefined && (eps)>0) return (1)
+	if (   e[5]>500 && e[2]>5 && e[3]>100 && e[7]!=0 && (eps)>0) return (1)
 }()
